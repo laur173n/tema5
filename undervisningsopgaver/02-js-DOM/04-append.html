@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .firkant {
+            height: 200px;
+            width: 200px;
+            line-height: 200px;
+            text-align: center;
+            background-color: green;
+        }
+
+        .cirkel {
+            height: 200px;
+            width: 200px;
+            line-height: 200px;
+            border-radius: 50%;
+            text-align: center;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="firkant"></div>
+
+    <div class="cirkel"></div>
+
+    <script>
+        document.querySelector(".firkant").innerHTML = "<img src='frog.png'>";
+        console.log(document.querySelector(".firkant"));
+        document.querySelector(".cirkel").innerHTML = "<img src='gris.png'>";
+        document.querySelector(".cirkel").innerHTML += "<img src='fox.png'>";
+    </script>
+</body>
+</html>
