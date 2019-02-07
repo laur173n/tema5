@@ -12,25 +12,42 @@
     </div>
 
     <script>
-        let dyr = {
-            "navn": "gris",
-            "type": "pattedyr",
-            "billede": "http://helf-kea.dk/test/gris.png",
-            "levested": "svinefarme"
-        };
+        let dyr = [{
+                "navn": "gris",
+                "type": "pattedyr",
+                "billede": "http://helf-kea.dk/test/gris.png",
+                "levested": "svinefarme"
+            },
+            {
+                "navn": "frø",
+                "type": "pattedyr",
+                "billede": "http://helf-kea.dk/test/fr%C3%B8.png",
+                "levested": "vand"
+            },
+            {
+                "navn": "ræv",
+                "type": "pattedyr",
+                "billede": "http://helf-kea.dk/test/fox.png",
+                "levested": "skov"
+            },
+            {
+                "navn": "sild",
+                "type": "fisk",
+                "billede": "http://helf-kea.dk/test/sild.jpg",
+                "levested": "vand"
+            },
+            {
+                "navn": "krokodille",
+                "type": "pattedyr",
+                "billede": "http://helf-kea.dk/test/kroko.jpg",
+                "levested": "Amazona"
+            }
 
-        //        //DET BLIVER VIST I CONSOLLEN
-        //        console.log(dyr);
-        //        console.log(`Dyr: ${dyr.navn}, Type: ${dyr.type}, Levested: ${dyr.levested}`);
 
-        document.addEventListener("DOMContentLoaded", start);
+        ];
 
-        function start() {
-            let dest = document.querySelector("#dyr");
-            dest.textContent = `Dyr: ${dyr.navn}, Type: ${dyr.type}, Levested: ${dyr.levested}`;
-            dest.innerHTML += `<br><img src ="${dyr.billede}" alt="${dyr.navn}">`;
-
-        }
+        //DET BLIVER VIST I CONSOLLEN
+        console.log(dyr);
     </script>
 </body>
 </html>
