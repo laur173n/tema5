@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,15 @@
 <body>
     <div id="liste">
     </div>
+
+    <style>
+        #liste {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+        }
+
+    </style>
 
     <script>
         let alleBegivenheder = [{
@@ -63,6 +73,8 @@
             }
             visBegivenheder();
         }
+
     </script>
 </body>
+
 </html>
