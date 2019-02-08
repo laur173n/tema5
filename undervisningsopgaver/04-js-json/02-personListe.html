@@ -39,6 +39,7 @@
         .person:hover {
             background-color: pink;
         }
+
     </style>
 
     <script>
@@ -62,8 +63,9 @@
                     <div class="person">
                         <h2>${person.navn}</h2>
                         <img src= "${person.billede}">
-                        <p>Alder: ${person.alder} <br> Køn: ${person.køn} <br> Email: ${person.email} <br> Hold: ${person.hold}<br> Historie: ${person.historie}</p>
-<a href ="hhtp://github.com/"${person.github}>Github</a> <br>
+                        <p>Github: ${person.github} <a href ="https://github.com/${person.github}">Github</a>
+<br>
+<br> Alder: ${person.alder} <br> Køn: ${person.køn} <br> Email: ${person.email} <br> Hold: ${person.hold}<br> Historie: ${person.historie}</p>
 
                     </div>
 `;
@@ -71,6 +73,7 @@
             }
             getJson();
         }
+
     </script>
 </body>
 
