@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <h1>ALLE</h1>
     <div class="menu">
         <button class="filter" data-hold="alle">ALLE</button>
         <button class="filter" data-hold="a">HOLD A</button>
@@ -52,7 +53,12 @@
         }
 
         .valgt {
-            background-color: red
+            background-color: blue;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: raleway;
         }
     </style>
 
@@ -93,7 +99,7 @@
 
             function filtrering() {
                 filter = this.getAttribute("data-hold");
-
+                document.querySelector("h1").textContent = this.textContent;
                 visPersoner();
             }
 
