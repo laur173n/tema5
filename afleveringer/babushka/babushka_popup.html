@@ -58,6 +58,7 @@
             height: 90vh;
             position: fixed;
             background-color: orange;
+            display: none;
         }
 
         #indhold {
@@ -79,7 +80,6 @@
             cursor: pointer;
 
         }
-
     </style>
 </head>
 
@@ -128,6 +128,7 @@
                 //                    return forretter.navn.localeCompare(hovedretter.navn, desserter.navn, drikkevarer.navn, sideorders.navn);
                 //                })
                 visRetter();
+
             }
 
             function visRetter() {
@@ -164,6 +165,10 @@
 
 
             })
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            });
+
 
             function filtrering() {
                 filter = this.getAttribute("data-hold");
@@ -177,7 +182,6 @@
 
             getJson();
         }
-
     </script>
 
 
