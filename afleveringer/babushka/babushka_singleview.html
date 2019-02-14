@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="DA">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Bistro Babushka</title>
     <link rel="stylesheet" href="">
     <style>
         #liste {
@@ -17,15 +17,12 @@
             margin: 5px;
             padding: 6px;
             background-color: darkgrey;
+            cursor: pointer;
         }
 
         p,
         h2 {
             font-family: raleway;
-        }
-
-        .ret:hover {
-            background-color: white;
         }
 
         .menu {
@@ -55,18 +52,20 @@
             background-color: lightgray;
         }
 
+
         #popup {
-            width: 70vw;
-            height: 70vh;
+            width: 100vw;
+            height: 90vh;
             position: fixed;
             background-color: orange;
+            display: none;
         }
 
         #indhold {
             box-sizing: border-box;
             background-color: lightgray;
-            width: 60vw;
-            height: 55vh;
+            ;
+            width: 90vw;
             margin: auto;
         }
 
@@ -78,6 +77,8 @@
 
         #luk button {
             font-size: 2em;
+            cursor: pointer;
+
         }
     </style>
 </head>
@@ -90,7 +91,7 @@
         <div id="indhold"></div>
     </div>
     <header>
-        <img src="afleveringer/babushka/imgs/header_logo.svg" alt="Logo">
+        <img src="header_logo.svg" alt="Logo">
         <nav class="menu">
             <button class="filter valgt" data-hold="alle">Alle</button>
             <button class="filter" data-hold="forretter">Forretter</button>
@@ -114,45 +115,72 @@
 
     <script>
         let alleRetter = [];
-        document.addEventListener("DOMContentLoaded", start);
-        let dest = document.querySelector("#liste");
-        let splash = document.querySelector("#splash");
         let filter = "alle";
 
+        document.addEventListener("DOMContentLoaded", start);
+
         function start() {
+            let dest = document.querySelector("#liste");
             async function getJson() {
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
                 alleRetter = await jsonData.json();
+                //                alleRetter.sort((forretter, hovedretter, desserter, drikkevarer, sideorders) => {
+                //                    return forretter.navn.localeCompare(hovedretter.navn, desserter.navn, drikkevarer.navn, sideorders.navn);
+                //                })
                 visRetter();
+
             }
 
             function visRetter() {
                 dest.innerHTML = "";
                 alleRetter.forEach(ret => {
                     if (filter == "alle" || filter == ret.kategori) {
-                        dest.innerHTML += `
+                        let template = `
                     <article class="ret">
-                        <img src="afleveringer/babushka/imgs/small/${ret.billede}-sm.jpg">
+                        <img src="imgs/small/${ret.billede}-sm.jpg">
                         <h2>${ret.navn}</h2>
                         <p>${ret.kort} <br> Pris: ${ret.pris},-</p>
                     </article>
 `;
+                        dest.insertAdjacentHTML("beforeend", template);
+                        dest.lastElementChild.addEventListener("click", åbn);
+
+                        function åbn() {
+                            document.querySelector("#indhold").innerHTML = `
+                    <article class="ret">
+                        <img src="imgs/small/${ret.billede}-sm.jpg">
+                        <h2>${ret.navn}</h2>
+                        <p>Beskrivelse: <br>  ${ret.lang} <br> Pris: ${ret.pris},-</p>
+                    </article>`;
+                            document.querySelector("#popup").style.display = "block";
+
+                        }
                     }
                 })
-                document.querySelectorAll(".filter").forEach(elm => {
-                    elm.addEventListener("click", filtrering);
-                })
-
-                function filtrering() {
-                    filter = this.getAttribute("data-hold");
-                    document.querySelectorAll(".filter").forEach(elm => {
-                        elm.classList.remove("valgt");
-                    })
-                    this.classList.add("valgt");
-                    visRetter();
-                }
             }
-            getJson()
+
+            //funktionen visRetter slut
+            document.querySelector("#luk button").addEventListener("click", () => {
+                document.querySelector("#popup").style.display = "none";
+
+
+            })
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            });
+
+
+            function filtrering() {
+                filter = this.getAttribute("data-hold");
+                document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visRetter();
+            }
+
+            getJson();
         }
     </script>
 
