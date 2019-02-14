@@ -9,7 +9,9 @@
     <style>
         #liste {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            /*            grid-template-columns: 1fr 1fr 1fr;*/
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            margin-bottom: 2em;
 
         }
 
@@ -52,20 +54,22 @@
             background-color: lightgray;
         }
 
-
         #popup {
-            width: 100vw;
+            width: 60vw;
             height: 90vh;
             position: fixed;
             background-color: orange;
             display: none;
+            text-align: center;
+            align-content: center;
+            left: 20vw;
         }
 
         #indhold {
             box-sizing: border-box;
             background-color: lightgray;
             ;
-            width: 90vw;
+            width: 55vw;
             margin: auto;
         }
 
