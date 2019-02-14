@@ -53,7 +53,7 @@
         }
 
 
-        #popup {
+        #singleview {
             width: 100vw;
             height: 90vh;
             position: fixed;
@@ -69,13 +69,13 @@
             margin: auto;
         }
 
-        #luk {
+        #tilbage {
             box-sizing: border-box;
             text-align: right;
             padding-right: 1em;
         }
 
-        #luk button {
+        #tilbage button {
             font-size: 2em;
             cursor: pointer;
 
@@ -84,8 +84,8 @@
 </head>
 
 <body>
-    <div id="popup">
-        <div id="luk">
+    <div id="singleview">
+        <div id="tilbage">
             <button>X</button>
         </div>
         <div id="indhold"></div>
@@ -124,9 +124,7 @@
             async function getJson() {
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
                 alleRetter = await jsonData.json();
-                //                alleRetter.sort((forretter, hovedretter, desserter, drikkevarer, sideorders) => {
-                //                    return forretter.navn.localeCompare(hovedretter.navn, desserter.navn, drikkevarer.navn, sideorders.navn);
-                //                })
+
                 visRetter();
 
             }
@@ -143,7 +141,9 @@
                     </article>
 `;
                         dest.insertAdjacentHTML("beforeend", template);
-                        dest.lastElementChild.addEventListener("click", åbn);
+                        dest.lastElementChild.addEventListener("click", () => {
+                            location.href = "singleview_nyside.html?id=" + ret.id;
+                        });
 
                         function åbn() {
                             document.querySelector("#indhold").innerHTML = `
@@ -152,7 +152,7 @@
                         <h2>${ret.navn}</h2>
                         <p>Beskrivelse: <br>  ${ret.lang} <br> Pris: ${ret.pris},-</p>
                     </article>`;
-                            document.querySelector("#popup").style.display = "block";
+                            document.querySelector("#singleview").style.display = "block";
 
                         }
                     }
@@ -160,8 +160,8 @@
             }
 
             //funktionen visRetter slut
-            document.querySelector("#luk button").addEventListener("click", () => {
-                document.querySelector("#popup").style.display = "none";
+            document.querySelector("#tilbage button").addEventListener("click", () => {
+                document.querySelector("#singleview").style.display = "none";
 
 
             })
