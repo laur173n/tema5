@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <img src="afleveringer/imgs/header_logo.svg" alt="Logo">
+        <img src="afleveringer/babushka/imgs/header_logo.svg" alt="Logo">
         <nav class="menu">
             <button class="filter valgt" data-hold="alle">Alle</button>
             <button class="filter" data-hold="forretter">Forretter</button>
@@ -34,6 +34,7 @@
         #liste {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
+
         }
 
         .ret {
@@ -67,10 +68,15 @@
 
         header img {
             background-color: orange;
+
         }
 
         button {
             padding: 0.5vw;
+        }
+
+        .ret:nth-child(odd) {
+            background-color: lightgray;
         }
     </style>
 
@@ -98,7 +104,7 @@
                     if (filter == "alle" || filter == ret.kategori) {
                         dest.innerHTML += `
                     <div class="ret">
-                        <img src="afleveringer/imgs/small/${ret.billede}-sm.jpg">
+                        <img src="afleveringer/babushka/imgs/small/${ret.billede}-sm.jpg">
                         <h2>${ret.navn}</h2>
                         <p>${ret.kort} <br> Pris: ${ret.pris},-</p>
                     </div>

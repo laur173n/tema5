@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style>
+        #liste {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .person {
+            border: 2px solid darkblue;
+            margin: 5px;
+            padding: 6px;
+            background-color: skyblue;
+        }
+
+        img {
+            width: 20%;
+        }
+
+        p,
+        h2 {
+            font-family: raleway;
+        }
+
+        .person:hover {
+            background-color: pink;
+        }
+
+        .menu {
+            text-align: center;
+        }
+
+        .valgt {
+            background-color: coral;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: raleway;
+        }
+
+        #popup {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: red;
+        }
+
+        #indhold {
+            box-sizing: border-box;
+            background-color: lightgray;
+            width: 90vw;
+            height: 90vh;
+            margin: auto;
+        }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            padding-right: 1em;
+        }
+
+        #luk button {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="popup">
+        <div id="luk">
+            <button>X</button>
+        </div>
+        <div id="indhold"></div>
+    </div>
+    <header>
+        <h1>ALLE</h1>
+        <nav class="menu">
+            <button class="filter valgt" data-hold="alle">ALLE</button>
+            <button class="filter" data-hold="a">HOLD A</button>
+            <button class="filter" data-hold="b">HOLD B</button>
+
+        </nav>
+    </header>
+    <main>
+        <section id="liste">
+
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+
+
+    <script>
+        let allePersoner = [];
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            let dest = document.querySelector("#liste");
+            async function getJson() {
+                let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
+                allePersoner = await jsonData.json();
+                allePersoner.sort((a, b) => {
+                    return a.navn.localeCompare(b.navn);
+                })
+                visPersoner();
+            }
+
+            function visPersoner() {
+                dest.innerHTML = "";
+                allePersoner.forEach(person => {
+                    if (filter == "alle" || filter == person.hold) {
+                        let template = `
+                    <div class="person">
+                        <h2>${person.navn}</h2>
+                        <img src= "${person.billede}">
+                        <p>Github: ${person.github} <a href ="https://github.com/${person.github}">Github</a><br><br> Alder: ${person.alder} <br> Køn: ${person.køn} <br> Email: ${person.email} <br> Hold: ${person.hold}<br> Historie: ${person.historie}</p>
+                    </div>
+`;
+                        dest.insertAdjacentHTML("beforeend", template);
+                        dest.lastElementChild.addEventListener("click", åbn);
+
+                        function åbn() {
+                            document.querySelector("#indhold").innerHTML = `
+                        <div class="person">
+                        <h2>${person.navn}</h2>
+                        <img src= "${person.billede}" alt="${person.navn}>
+                        Alder: ${person.alder} <br> Køn: ${person.køn} <br> Email: ${person.email} <br> Hold: ${person.hold}<br> Historie: ${person.historie}</p>
+                    </div>
+
+                            `;
+                            document.querySelector("#popup").style.display = "block";
+                        }
+                    }
+                })
+            }
+
+            //funktionen visPersoner slut
+            document.querySelector("#luk button").addEventListener("click", () => {
+                document.querySelector("#popup").style.display = "none";
+            })
+
+            function filtrering() {
+                filter = this.getAttribute("data-hold");
+                document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visPersoner();
+            }
+
+            getJson();
+        }
+    </script>
+
+
+</body>
+
+</html>
